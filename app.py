@@ -10,7 +10,7 @@ def USDtoEuroRate():
 def convert_usd_to_euro(usd):
     # usd = request.args.get('amount', default=1, type=float)
     exchangeRate = USDtoEuroRate()
-    euros = usd * exchangeRate
+    euros = float(usd) * exchangeRate
     return jsonify({
         'usd': usd,
         'euros': round(euros, 2),
