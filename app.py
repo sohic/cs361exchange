@@ -11,11 +11,12 @@ def valid_input(usd):
     valid_format = r'^(\d{1,3}(,\d{3})*|\d+)\.\d{2}$'
     return bool(re.match(valid_format, usd))
 
-@app.route('/convert/<usd>', methods=['GET'])
-def convert_usd_to_euro(usd):
+@app.route('/convert', methods=['GET'])
+def convert_usd_to_euro():
+    usd = request.args.get('usd', default=None, type=float)
     if usd is None:
         return "Please enter a valid US Dollar value to convert to Euros.", 400, {'Content-Type': 'text/plain'}
-    if not valid_input(usd):
+    if not valid_input(str(usd)):
         return "Invalid input, please enter a valid dollar amount with exactly two decimal place values.", 400, {'Content-Type': 'text/plain'}
     exchangeRate = USDtoEuroRate()
     euros = float(usd) * exchangeRate
