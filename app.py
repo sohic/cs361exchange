@@ -13,6 +13,8 @@ def valid_input(usd):
 
 @app.route('/convert/<usd>', methods=['GET'])
 def convert_usd_to_euro(usd):
+    if usd == "":
+        return "Please enter a valid US Dollar value to convert to Euros.", 400, {'Content-Type': 'text/plain'}
     if not valid_input(usd):
         return "Invalid input, please enter a valid dollar amount with exactly two decimal place values.", 400, {'Content-Type': 'text/plain'}
     exchangeRate = USDtoEuroRate()
