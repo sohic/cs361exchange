@@ -19,10 +19,10 @@ def convert_usd_to_euro():
     if not valid_input(usd):
         return "Invalid input, please enter a valid dollar amount with exactly two decimal place values.", 400, {'Content-Type': 'text/plain'}
     exchangeRate = USDtoEuroRate()
-    euros = round(float(usd) * exchangeRate,2)
+    euros = float(usd) * exchangeRate
     return jsonify({
         'usd': usd,
-        'euros': round(euros, 2),
+        'euros': str(round(euros, 2)),
         'exchangeRate': exchangeRate
     })
     
