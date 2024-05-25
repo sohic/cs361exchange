@@ -7,23 +7,23 @@ app = Flask(__name__)
 def USDtoEuroRate():
     return 0.94  
 
-def valid_input(usd):
-    valid_format = r'^(\d{1,3}(,\d{3})*|\d+)\.\d{2}$'
-    return bool(re.match(valid_format, usd))
+def ValidInput(usd):
+    validFormat = r'^(\d{1,3}(,\d{3})*|\d+)\.\d{2}$'
+    return bool(re.match(validFormat, usd))
 
 @app.route('/convert', methods=['GET'])
-def convert_usd_to_euro():
+def ConvertUSDtoEuros():
     usd = request.args.get('usd', default=None, type=str)
     if usd is None:
         return "Please enter a valid US Dollar value to convert to Euros.", 400, {'Content-Type': 'text/plain'}
-    if not valid_input(usd):
+    if not ValidInput(usd):
         return "Invalid input, please enter a valid dollar amount with exactly two decimal place values.", 400, {'Content-Type': 'text/plain'}
     exchangeRate = USDtoEuroRate()
     euros = round(float(usd) * exchangeRate, 2)
-    euros_formated = f"{euros:.2f}"
+    eurosFormated = f"{euros:.2f}"
     return jsonify({
         'usd': usd,
-        'euros': euros_formated,
+        'euros': eurosFormated,
         'exchangeRate': exchangeRate
     })
     
